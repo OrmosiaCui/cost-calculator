@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cost Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            margin-top: 20px;
+        }
+        label, input {
+            display: block;
+            margin: 10px auto;
+            line-height: 2;
+        }
+        input[type="text"] {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 8px;
+            width: 200px;
+        }
+        input[type="submit"] {
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #555;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .error-message {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Total Cost Calculator</h1>
+    <form id="costCalculatorForm" method="post" action="/">
+        <!-- 动态数据行的容器 -->
+        <div id="dataGroupsContainer">
+            <div class="data-group">
+                <label>Web Traffic Impacted:</label>
+                <input type="text" name="webtraffic[]">
+
+                <label>Degredation Impact for users (%):</label>
+                <input type="text" name="degradation[]">
+            </div>
+        </div>
+
+        <!-- 添加和删除按钮 -->
+        <button type="button" id="addRowButton">Add More</button>
+        <button type="button" id="removeRowButton">Remove</button>
+
+
+        <label for="ads_revenue_cpm">Ads Revenue CPM ($):</label>
+        <input type="text" id="ads_revenue_cpm" name="ads_revenue_cpm" value="0.063693" placeholder="Enter value in USD">
+
+        <label for="sub_revenue_cpm">Sub Revenue CPM ($):</label>
+        <input type="text" id="sub_revenue_cpm" name="sub_revenue_cpm" value="0.195754" placeholder="Enter value in USD">
+
+        <!-- 提交按钮等其他内容 -->
+        <input type="submit" value="Calculate">
+    </form>
+
+    <!-- 结果显示和错误消息 -->
+    {% if total_cost is defined %}
+        <h2>Calculated Total Cost</h2>
+        <p>$ {{ total_cost }} </p>
+    {% endif %}
+    {% if error is defined %}
+        <p class="error-message">{{ error }}</p>
+    {% endif %}
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var container = document.getElementById('dataGroupsContainer');
+        var addRowButton = document.getElementById('addRowButton');
+        var removeRowButton = document.getElementById('removeRowButton');
+
+        addRowButton.addEventListener('click', function () {
+            var newGroup = container.firstElementChild.cloneNode(true);
+            newGroup.querySelectorAll('input').forEach(function (input) {
+                input.value = ''; // 清空新行的输入数据
+            });
+            container.appendChild(newGroup);
+        });
+
+        removeRowButton.addEventListener('click', function () {
+            if (container.childElementCount > 1) {
+                container.removeChild(container.lastElementChild);
+            } else {
+                alert('At least one set of data is required.');
+            }
+        });
+    });
+
+</script>
+
+
+</html>
