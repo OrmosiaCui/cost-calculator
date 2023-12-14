@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cost Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+        h1 {
+            color: #333;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        input[type="file"] {
+            border: 1px solid #ddd;
+            padding: 10px;
+            width: calc(100% - 22px);
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .error-message {
+            color: red;
+            margin: 10px 0;
+        }
+        .result {
+            background-color: #e7f4e4;
+            padding: 10px;
+            margin-top: 20px;
+            border: 1px solid #d4edda;
+            border-radius: 5px;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Cost Calculator</h1>
+        <p>Please upload your CSV file to calculate the cost.</p>
+
+        <!-- File upload form -->
+        <form method="post" action="/" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="file" name="file">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Upload and Calculate">
+            </div>
+        </form>
+
+        <!-- Display calculation result -->
+        {% if total_cost is defined %}
+            <div class="result">
+                <h2>Calculated Total Cost</h2>
+                <p>{{ total_cost }} USD</p>
+            </div>
+        {% endif %}
+
+        <!-- Display error message -->
+        {% if error is defined %}
+            <p class="error-message">{{ error }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

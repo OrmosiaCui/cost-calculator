@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cost Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            margin-top: 20px;
+        }
+        label, input {
+            display: block;
+            margin: 10px auto;
+            line-height: 2;
+        }
+        input[type="text"] {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 8px;
+            width: 200px;
+        }
+        input[type="submit"] {
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #555;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .error-message {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Total Cost Calculator</h1>
+
+    <form method="post" action="/">
+        <label for="webtraffic">Web Traffic Impacted:</label>
+        <input type="text" id="webtraffic" name="webtraffic">
+
+        <label for="degradation">Degredation Impact for users (%):</label>
+        <input type="text" id="degradation" name="degradation">
+
+        <label for="ads_revenue_cpm">Ads Revenue CPM ($):</label>
+        <input type="text" id="ads_revenue_cpm" name="ads_revenue_cpm" value="0.063693" placeholder="Enter value in USD">
+
+        <label for="sub_revenue_cpm">Sub Revenue CPM ($):</label>
+        <input type="text" id="sub_revenue_cpm" name="sub_revenue_cpm" value="0.195754" placeholder="Enter value in USD">
+
+        <input type="submit" value="Calculate">
+    </form>
+
+    {% if total_cost is defined %}
+        <h2>Calculated Total Cost</h2>
+        <p>$ {{ total_cost }} </p>
+    {% endif %}
+    {% if error is defined %}
+        <p class="error-message">{{ error }}</p>
+    {% endif %}
+</body>
+</html>
